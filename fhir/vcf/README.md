@@ -9,3 +9,4 @@ In the FHIR-Genomics:
 3. Meanwhile we defined a new source type: Sequencevcf to avoid conflicts (for example: in models.py) with previous type definition.
 4. The type of VCF data is different from the previous sequence_resource declared in Sequence.py, therefore, we added a new resouce type: sequencevcf_resource.
 5. Example file store path: fhir/example/vcf/filename
+6. Since there are few modifications among VCF versions, temporarily we use examples in VCFv4.1.
