@@ -117,10 +117,6 @@ class Resource(db.Model, SimpleInsert):
         self.visible = True
         self.owner_id = owner_id
         if resource_type == 'Sequence':
-            self.chromosome = data['chromosome']['text']
-            self.start = data['start']
-            self.end = data['end']
-        elif resource_type =='Sequencevcf':
             self.chromosome = data['chromosome']
             self.start = data['startPosition']
             self.end = data['endPosition']

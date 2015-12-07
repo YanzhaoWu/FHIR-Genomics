@@ -7,7 +7,7 @@ from fhir.indexer import index_resource
 from fhir.fhir_parser import parse_resource
 from fhir.fhir_spec import RESOURCES
 import names
-from vcf import VCFReader # Set for VCF another way is through pyvcf
+from vcf import VCFReader
 from argparse import ArgumentParser
 import random
 from functools import partial
@@ -227,11 +227,11 @@ def load_vcf_example(vcf_file):
     for record in reader:
         sequence_tmpl = {
             'text': {'status': 'generated'},
-            'resourceType': 'Sequencevcf',
+            'resourceType': 'Sequence',
             'type': 'dna',
             'chromosome': record.CHROM,
             'startPosition': record.POS,
-            'endPosition': record.end, # endPosition
+            'endPosition': record.end,
             'genomeBuild': 'GRCh37',
             'sample': 'germline',
             'species': { 'text': 'Homo sapiens' }
@@ -259,7 +259,7 @@ def load_vcf_example(vcf_file):
             variant_id = record.ID
             variant = variant_id if variant_id is not None else 'anonymous variant'
             seq_data['text']['div']  = '<div>Genotype of %s is %s</div>'% (variant, reads)
-            sequence = save_resource('Sequencevcf', seq_data)
+            sequence = save_resource('Sequence', seq_data)
             print 'Created Sequence at %s:%s-%s'% (record.CHROM, record.POS, record.end)
 
             # randomly link a DNA sequence to conditions that the user has
@@ -309,9 +309,4 @@ if __name__ == '__main__':
         elif args.file_type == 'ttam':
             for example_file in os.listdir(os.path.join(BASEDIR, 'examples/ttam')):
                 load_ttam_example(os.path.join(BASEDIR, 'examples/ttam', example_file))
-
-        # Resevered for other genotype data loader.
-        
-        for _ in xrange(8):
-            rand_patient()
         commit_buffers(BUF) 
